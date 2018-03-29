@@ -6,6 +6,8 @@ ini_version=1
 fork=true
 ; tcp port to listen
 port=3389
+; 'port' above should be connected to with vsock instead of tcp
+use_vsock=false
 ; regulate if the listening socket use socket option tcp_nodelay
 ; no buffering will be performed in the TCP stack
 tcp_nodelay=true
@@ -148,9 +150,12 @@ tcutils=true
 ; Session types
 ;
 
+; Some session types such as Xorg, X11rdp and Xvnc start a display server.
+; Startup command-line parameters for the display server are configured
+; in sesman.ini. See and configure also sesman.ini.
 [Xorg]
 name=Xorg
-lib=libxup.so
+lib=libxup.@lib_extension@
 username=ask
 password=ask
 ip=127.0.0.1
@@ -159,7 +164,7 @@ code=20
 
 [X11rdp]
 name=X11rdp
-lib=libxup.so
+lib=libxup.@lib_extension@
 username=ask
 password=ask
 ip=127.0.0.1
@@ -169,7 +174,7 @@ code=10
 
 [Xvnc]
 name=Xvnc
-lib=libvnc.so
+lib=libvnc.@lib_extension@
 username=ask
 password=ask
 ip=127.0.0.1
@@ -179,7 +184,7 @@ port=-1
 
 [console]
 name=console
-lib=libvnc.so
+lib=libvnc.@lib_extension@
 ip=127.0.0.1
 port=5900
 username=na
@@ -188,7 +193,7 @@ password=ask
 
 [vnc-any]
 name=vnc-any
-lib=libvnc.so
+lib=libvnc.@lib_extension@
 ip=ask
 port=ask5900
 username=na
@@ -200,7 +205,7 @@ password=ask
 
 [sesman-any]
 name=sesman-any
-lib=libvnc.so
+lib=libvnc.@lib_extension@
 ip=ask
 port=-1
 username=ask
@@ -209,7 +214,7 @@ password=ask
 
 [neutrinordp-any]
 name=neutrinordp-any
-lib=libxrdpneutrinordp.so
+lib=libxrdpneutrinordp.@lib_extension@
 ip=ask
 port=ask3389
 username=ask
